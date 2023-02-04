@@ -15,8 +15,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 configure_hosts_file ()
 {
 sudo tee /etc/hosts<<EOF
-172.16.8.10 master
-172.16.8.11 node-01
+192.168.59.10 master
+192.168.59.11 node-01
+192.168.59.12 node-02
 EOF
 }
 
@@ -47,6 +48,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 sudo apt install -y containerd.io docker-ce docker-ce-cli
 sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/docker
+sudo touch /etc/docker/daemon.json
 sudo tee /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -62,7 +65,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo systemctl enable docker
 
-sed -i 's/plugins.cri.systemd_cgroup = false/plugins.cri.systemd_cgroup = true/' /etc/containerd/config.toml
+sudo sed -i 's/plugins.cri.systemd_cgroup = false/plugins.cri.systemd_cgroup = true/' /etc/containerd/config.toml
 }
 
 install_required_packages

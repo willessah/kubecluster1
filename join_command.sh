@@ -1,1 +1,1 @@
-kubeadm join 172.16.8.10:6443 --token imltwr.rnb1imjzka5uicx3     --discovery-token-ca-cert-hash sha256:73415d7bde12e9454c4faa1df266f81bc4b887029f142fc3692d5c732ac521a2 
+kubeadm join 192.168.59.10:6443 --token z4afau.u9a79nn8tfbucemc     --discovery-token-ca-cert-hash sha256:7dc5e6ee2a02f5f13d46dee039f3fd1aa5c346becafa8eddb625e8d6c06a9d98 
