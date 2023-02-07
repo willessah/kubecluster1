@@ -8,6 +8,7 @@ NODE_02_IP      = "192.168.59.12"
 Vagrant.configure("2") do |config|
   config.vm.box = "geerlingguy/ubuntu2004"
   config.vm.box_version = "1.0.3"
+  
 
   boxes = [
     { :name => "master",  :ip => MASTER_IP,  :cpus => 1, :memory => 2048 },
@@ -19,6 +20,7 @@ Vagrant.configure("2") do |config|
     config.vm.define opts[:name] do |box|
       box.vm.hostname = opts[:name]
       box.vm.network :private_network, ip: opts[:ip]
+      
  
       box.vm.provider "virtualbox" do |vb|
         vb.cpus = opts[:cpus]
@@ -27,7 +29,7 @@ Vagrant.configure("2") do |config|
       box.vm.provision "shell", path:"./install-kubernetes-dependencies.sh"
       if box.vm.hostname == "master" then 
         box.vm.provision "shell", path:"./configure-master-node.sh"
-        end
+      end
       if box.vm.hostname == "node-01" then ##TODO: create some regex to match worker hostnames
         box.vm.provision "shell", path:"./configure-worker-nodes.sh"
       end
